@@ -18,6 +18,15 @@ require("./config")(app);
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
 
+const parkingRoutes = require("./routes/parking.routes");
+app.use("/api", parkingRoutes);
+
+const cycleRoutes = require("./routes/cycleRoutes.routes");
+app.use("/api", cycleRoutes);
+
+const zone30Routes = require("./routes/zone30.routes");
+app.use("/api", zone30Routes);
+
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
