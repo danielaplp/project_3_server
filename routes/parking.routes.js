@@ -3,11 +3,12 @@ const Parking = require("../models/Parking.model");
 
 router.post('/parking', async(req, res, next) => {
     try {
-        const { type, location, quantity, parkingPic } = req.body
+        const { type, startLocation, endLocation, quantity, parkingPic } = req.body
 
         const newParking = await Parking.create({
             type,
-            location,
+            startLocation,
+            endLocation,
             quantity,
             parkingPic,
         });
@@ -48,11 +49,12 @@ router.put('/parking/:parkingId', async(req, res, next) => {
     try {
         
      const {parkingId} = req.params
-     const { type, location, quantity, parkingPic } = req.body;
+     const { type, startLocation, endLocation, quantity, parkingPic } = req.body;
 
      const updatedParking = await Parking.findByIdAndUpdate(parkingId, {
         type,
-        location,
+        startLocation,
+        endLocation,
         quantity,
         parkingPic,
      }, 

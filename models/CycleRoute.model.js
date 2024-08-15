@@ -7,6 +7,7 @@ const cycleRouteSchema = new Schema({
         enun: [
             "Lane",
             "Path",
+            "Zone30"
         ]
     },
   
