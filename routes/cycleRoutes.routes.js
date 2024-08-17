@@ -1,14 +1,21 @@
 const router = require("express").Router();
 const CycleRoute = require("../models/CycleRoute.model");
+const User = require("../models/User.model")
 
 router.post("/cycleroutes", async (req, res, next) => {
   try {
-    const { startLocation, endLocation, type } = req.body;
+    const { startLocation, endLocation, type, userId } = req.body;
 
     const newCycleRoute = await CycleRoute.create({
       startLocation,
       endLocation,
       type,
+      creator: userId
+    });
+    await User.findByIdAndUpdate(userId, {
+      $push: {
+        createdRoutes: newCycleRoute._id
+      }
     });
 
     res.status(201).json(newCycleRoute);

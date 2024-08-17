@@ -18,6 +18,23 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
+   
+    createdRoutes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "CycleRoute"
+      }
+    ],
+
+    createdParkings: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Parking"
+      }
+    ]
+
+
+
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

@@ -13,6 +13,10 @@ const parkingSchema = new Schema({
     },
     
     quantity: Number,
+    creator: {
+        type: Schema.Types.ObjectId, 
+        ref: "User"
+    }
 });
 
 const Parking = model('Parking', parkingSchema);

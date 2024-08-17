@@ -19,6 +19,12 @@ const cycleRouteSchema = new Schema({
         lat: Number,
         lng: Number
     },
+
+
+    creator: {
+        type: Schema.Types.ObjectId, 
+        ref: "User"
+    }
 });
 
 const CycleRoute = model('CycleRoute', cycleRouteSchema);

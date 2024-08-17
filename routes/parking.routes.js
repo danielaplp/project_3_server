@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const Parking = require("../models/Parking.model");
+const User = require("../models/User.model")
 
 router.post('/parking', async(req, res, next) => {
     try {
-        const { type, startLocation, endLocation, quantity, parkingPic } = req.body
+        const { type, startLocation, endLocation, quantity, parkingPic, userId } = req.body
 
         const newParking = await Parking.create({
             type,
@@ -11,7 +12,16 @@ router.post('/parking', async(req, res, next) => {
             endLocation,
             quantity,
             parkingPic,
+            creator: userId
         });
+
+        await User.findByIdAndUpdate(userId, {
+            $push: {
+              createdParkings: newParking._id
+            }
+          });
+
+
 
         res.status(201).json(newParking);
     } catch (error) {
@@ -49,14 +59,21 @@ router.put('/parking/:parkingId', async(req, res, next) => {
     try {
         
      const {parkingId} = req.params
-     const { type, startLocation, endLocation, quantity, parkingPic } = req.body;
+     const { type, startLocation, endLocation, quantity, parkingPic, userId } = req.body;
+
+     const foundParking = await Parking.findById(parkingId)
+
+     if (userId !== foundParking.creator) {
+        res.status(403).send("Unathorized user")
+        return
+     }
 
      const updatedParking = await Parking.findByIdAndUpdate(parkingId, {
         type,
         startLocation,
         endLocation,
         quantity,
-        parkingPic,
+        parkingPic
      }, 
      {new: true});
 
