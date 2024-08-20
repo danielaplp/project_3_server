@@ -46,7 +46,7 @@ router.get('/parking', async(req, res, next) => {
 router.get('/parking/:parkingId', async(req, res, next) => {
     try {
         const {parkingId} = req.params
-        const singleParking = await Parking.findById(parkingId).populate("parking");
+        const singleParking = await Parking.findById(parkingId);
 
         res.status(200).json(singleParking);
     } catch (error) {
@@ -68,7 +68,8 @@ router.put('/parking/:parkingId', async(req, res, next) => {
         return
      }
 
-     const updatedParking = await Parking.findByIdAndUpdate(parkingId, {
+     const updatedParking = await Parking.findByIdAndUpdate(
+        parkingId, {
         type,
         startLocation,
         endLocation,
