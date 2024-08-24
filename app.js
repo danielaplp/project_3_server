@@ -24,11 +24,13 @@ app.use("/api", parkingRoutes);
 const cycleRoutes = require("./routes/cycleRoutes.routes");
 app.use("/api", cycleRoutes);
 
-const zone30Routes = require("./routes/zone30.routes");
-app.use("/api", zone30Routes);
+const repairStoreRoutes = require("./routes/repairStore.routes");
+app.use("/api", repairStoreRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
+
+
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

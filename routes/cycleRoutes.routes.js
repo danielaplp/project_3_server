@@ -55,7 +55,7 @@ router.put("/cycleroutes/:cycleroutesId", async (req, res, next) => {
 
     const foundCycleRoute = await CycleRoute.findById(cycleroutesId)
 
-    if (userId !== foundCycleRoute.creator) {
+    if (userId !== foundCycleRoute.creator.toString()) {
       res.status(403).send("Unathorized user")
       return
    }

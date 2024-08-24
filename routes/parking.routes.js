@@ -4,12 +4,11 @@ const User = require("../models/User.model")
 
 router.post('/parking', async(req, res, next) => {
     try {
-        const { type, startLocation, endLocation, quantity, parkingPic, userId } = req.body
+        const { type, location, quantity, parkingPic, userId } = req.body
 
         const newParking = await Parking.create({
             type,
-            startLocation,
-            endLocation,
+            location,
             quantity,
             parkingPic,
             creator: userId
@@ -59,11 +58,11 @@ router.put('/parking/:parkingId', async(req, res, next) => {
     try {
         
      const {parkingId} = req.params
-     const { type, startLocation, endLocation, quantity, parkingPic, userId } = req.body;
+     const { type, location, quantity, parkingPic, userId } = req.body;
 
      const foundParking = await Parking.findById(parkingId)
 
-     if (userId !== foundParking.creator) {
+     if (userId !== foundParking.creator.toString()) {
         res.status(403).send("Unathorized user")
         return
      }
@@ -71,8 +70,7 @@ router.put('/parking/:parkingId', async(req, res, next) => {
      const updatedParking = await Parking.findByIdAndUpdate(
         parkingId, {
         type,
-        startLocation,
-        endLocation,
+        location,
         quantity,
         parkingPic
      }, 
