@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const CycleRoute = require("../models/CycleRoute.model");
-const User = require("../models/User.model")
+const User = require("../models/User.model");
 
 router.post("/cycleroutes", async (req, res, next) => {
   try {
@@ -10,12 +10,12 @@ router.post("/cycleroutes", async (req, res, next) => {
       startLocation,
       endLocation,
       type,
-      creator: userId
+      creator: userId,
     });
     await User.findByIdAndUpdate(userId, {
       $push: {
-        createdRoutes: newCycleRoute._id
-      }
+        createdRoutes: newCycleRoute._id,
+      },
     });
 
     res.status(201).json(newCycleRoute);
@@ -53,12 +53,12 @@ router.put("/cycleroutes/:cycleroutesId", async (req, res, next) => {
     const { cycleroutesId } = req.params;
     const { startLocation, endLocation, type, userId } = req.body;
 
-    const foundCycleRoute = await CycleRoute.findById(cycleroutesId)
+    const foundCycleRoute = await CycleRoute.findById(cycleroutesId);
 
     if (userId !== foundCycleRoute.creator.toString()) {
-      res.status(403).send("Unathorized user")
-      return
-   }
+      res.status(403).send("Unathorized user");
+      return;
+    }
 
     const updatedCycleRoute = await CycleRoute.findByIdAndUpdate(
       cycleroutesId,

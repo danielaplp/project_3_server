@@ -19,6 +19,7 @@ const cycleRouteSchema = new Schema({
         lat: Number,
         lng: Number
     },
+  
 
 
     creator: {
